@@ -3,6 +3,7 @@
 **ParkSmart** is an interactive web application that allows real-time visualization of available parking spaces in Toulouse on a map. This project combines IoT technologies with web services to provide an intuitive parking management solution.
 
 ## Technologies Used
+
 - **MQTT** : Used to collect real-time parking data (availability, status).
 - **Python** : Backend language used to process data and interact with the database.
 - **MySQL** : Database for storing parking information (location, availability, etc.).
@@ -15,6 +16,7 @@ Before installing and running this project, ensure you have the following instal
 
 - Docker
 - Docker Compose
+- Python 3.0 or higher
 
 ## Installation
 
@@ -38,11 +40,12 @@ Before installing and running this project, ensure you have the following instal
    docker compose stop
    ```
 
-4. Accéder aux services :
+4. Run simulation :
 
-   - MySQL : [localhost:3306](http://localhost:3306)
-   - Mosquitto : [localhost:1883](http://localhost:1883)
-   - Nginx : [localhost:8080](http://localhost:8080)
+   ```bash
+   cd python
+   python3 simulation.py
+   ```
 
 ## License
 

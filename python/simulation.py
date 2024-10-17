@@ -3,16 +3,13 @@ import json
 import random
 import time
 
-with open("app/python/parking.json", "r") as f:
+with open("parking.json", "r") as f:
     parkings = json.load(f)
 
 
-def on_connect(client, userdata, flags, reason_code, properties):
+def on_connect(client, userdata, flags, rc):
     print("Connected to MQTT server")
     send_initial_data()
-    while True:
-        simulate_sensors()
-        time.sleep(60)
 
 
 def send_initial_data():
@@ -53,7 +50,7 @@ def send_initial_data():
                 "price_sub_no_resident": parking["abo_non_resident"],
             },
         }
-        mqttc.publish("init_parking", json.dumps(data))
+        client.publish("init_parking", json.dumps(data))
 
 
 def simulate_sensors():
@@ -74,12 +71,24 @@ def simulate_sensors():
                 "free_stop_minute": random.randint(0, parking["nb_arretm"]),
             },
         }
-        mqttc.publish("parking_sensor", json.dumps(data))
+        client.publish("parking_sensor", json.dumps(data))
 
 
-mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
-mqttc.on_connect = on_connect
+client = mqtt.Client()
+client.on_connect = on_connect
 
-mqttc.connect("localhost", 1883, 60)
+client.connect("localhost", 1884, 60)
 
-mqttc.loop_forever()
+client.loop_start()
+
+try:
+    while True:
+        simulate_sensors()
+        time.sleep(60)
+
+except KeyboardInterrupt:
+    print("Stopping script...")
+
+finally:
+    client.loop_stop()
+    client.disconnect()
