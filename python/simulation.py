@@ -7,9 +7,8 @@ with open("parking.json", "r") as f:
     parkings = json.load(f)
 
 
-def on_connect(client, userdata, flags, rc):
-    print("Connected to MQTT server")
-    send_initial_data()
+def on_connect(client, userdata, flags, rc, properties=None):
+    print("SIMULATION connected to MQTT server")
 
 
 def send_initial_data():
@@ -82,6 +81,7 @@ client.connect("localhost", 1884, 60)
 client.loop_start()
 
 try:
+    send_initial_data()
     while True:
         simulate_sensors()
         time.sleep(60)
