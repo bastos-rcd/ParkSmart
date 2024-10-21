@@ -26,27 +26,37 @@ def send_initial_data():
                 "max_height": parking["hauteur_max"],
             },
             "places": {
-                "cars": parking["nb_voitures"],
-                "pr": parking["nb_pr"],
-                "pmr": parking["nb_pmr"],
-                "elec_cars": parking["nb_voitures_electriques"],
-                "bycicles": parking["nb_velo"],
-                "2wheels_elec": parking["nb_2r_el"],
-                "autoshare": parking["nb_autopartage"],
-                "2wheels": parking["nb_2_rm"],
-                "covoit": parking["nb_covoit"],
-                "amodies": parking["nb_amodie"],
-                "stop_minute": parking["nb_arretm"],
+                "cars": parking["nb_voitures"] if parking["nb_voitures"] else 0,
+                "pr": parking["nb_pr"] if parking["nb_pr"] else 0,
+                "pmr": parking["nb_pmr"] if parking["nb_pmr"] else 0,
+                "elec_cars": (
+                    parking["nb_voitures_electriques"]
+                    if parking["nb_voitures_electriques"]
+                    else 0
+                ),
+                "bycicles": parking["nb_velo"] if parking["nb_velo"] else 0,
+                "2wheels_elec": parking["nb_2r_el"] if parking["nb_2r_el"] else 0,
+                "autoshare": (
+                    parking["nb_autopartage"] if parking["nb_autopartage"] else 0
+                ),
+                "2wheels": parking["nb_2_rm"] if parking["nb_2_rm"] else 0,
+                "covoit": parking["nb_covoit"] if parking["nb_covoit"] else 0,
+                "amodies": parking["nb_amodie"] if parking["nb_amodie"] else 0,
+                "stop_minute": parking["nb_arretm"] if parking["nb_arretm"] else 0,
             },
             "prices": {
-                "price_pmr": parking["tarif_pmr"],
-                "price_1h": parking["tarif_1h"],
-                "price_2h": parking["tarif_2h"],
-                "price_3h": parking["tarif_3h"],
-                "price_4h": parking["tarif_4h"],
-                "price_24h": parking["tarif_24h"],
-                "price_sub_resident": parking["abo_resident"],
-                "price_sub_no_resident": parking["abo_non_resident"],
+                "price_pmr": parking["tarif_pmr"] if parking["tarif_pmr"] else 0,
+                "price_1h": parking["tarif_1h"] if parking["tarif_1h"] else 0,
+                "price_2h": parking["tarif_2h"] if parking["tarif_2h"] else 0,
+                "price_3h": parking["tarif_3h"] if parking["tarif_3h"] else 0,
+                "price_4h": parking["tarif_4h"] if parking["tarif_4h"] else 0,
+                "price_24h": parking["tarif_24h"] if parking["tarif_24h"] else 0,
+                "price_sub_resident": (
+                    parking["abo_resident"] if parking["abo_resident"] else 0
+                ),
+                "price_sub_no_resident": (
+                    parking["abo_non_resident"] if parking["abo_non_resident"] else 0
+                ),
             },
         }
         client.publish("init_parking", json.dumps(data))
@@ -76,7 +86,11 @@ def simulate_sensors():
 client = mqtt.Client()
 client.on_connect = on_connect
 
-client.connect("localhost", 1884, 60)
+client.connect(
+    "localhost",
+    1884,
+    60,
+)
 
 client.loop_start()
 

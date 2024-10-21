@@ -6,7 +6,12 @@ parkings = []
 
 def on_connect(client, userdata, flags, rc, properties=None):
     print("CALCULATE connected to MQTT server")
-    client.subscribe([("init_parking", 0), ("parking_sensor", 0)])
+    client.subscribe(
+        [
+            ("init_parking", 0),
+            ("parking_sensor", 0),
+        ]
+    )
 
 
 def on_message(client, userdata, msg):
@@ -110,10 +115,14 @@ def on_parking_sensor(data):
     client.publish("parking_average", json.dumps(parking))
 
 
-client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("localhost", 1884, 60)
+client.connect(
+    "localhost",
+    1884,
+    60,
+)
 
 client.loop_forever()

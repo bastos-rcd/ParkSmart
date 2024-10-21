@@ -16,7 +16,11 @@ Before installing and running this project, ensure you have the following instal
 
 - Docker
 - Docker Compose
+- Mosquitto
+- MySQL Client
 - Python 3.0 or higher
+- Paho-MQTT
+- MySQL Connector
 
 ## Installation
 
@@ -40,11 +44,18 @@ Before installing and running this project, ensure you have the following instal
    docker compose stop
    ```
 
-4. Run simulation :
+4. Initialize the database :
+
+   ```bash
+   docker exec -it mysql bash
+   mysql -u root -p ParkSmart < /docker-entrypoint-initdb.d/init_db.sql
+   ```
+
+5. Run simulation :
 
    ```bash
    cd python
-   python3 simulation.py
+   python3 start.py
    ```
 
 ## License
