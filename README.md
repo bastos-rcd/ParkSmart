@@ -5,7 +5,7 @@
 ## Technologies Used
 
 - **MQTT** : Used to collect real-time parking data (availability, status).
-- **Python** : Backend language used to process data and interact with the database.
+- **PHP** : Backend language used to process data and interact with the database.
 - **MySQL** : Database for storing parking information (location, availability, etc.).
 - **Nginx** : Web server to deploy the application.
 - **Docker** : Used to orchestrate and isolate the different services.
@@ -19,8 +19,6 @@ Before installing and running this project, ensure you have the following instal
 - Mosquitto
 - MySQL Client
 - Python 3.0 or higher
-- Paho-MQTT
-- MySQL Connector
 
 ## Installation
 
@@ -57,6 +55,10 @@ Before installing and running this project, ensure you have the following instal
    cd python
    python3 start.py
    ```
+
+6. Access the application :
+
+   Open your browser and go to `http://localhost`.
 
 ## License
 
